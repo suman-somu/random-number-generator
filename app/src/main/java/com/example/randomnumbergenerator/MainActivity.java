@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -33,11 +34,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    Random random= new Random();
+    public int x= random.nextInt(10);
+//    int x=5;
     public void btnGenerateCheck (View view ){
 
         //created a random number
-        Random random= new Random();
-        int x= random.nextInt(10);
+
+        EditText number = findViewById(R.id.enterGuess);
+
+        TextView result = findViewById(R.id.result);
+
+        String n="";
+        int no=0;
+
 
         int t=1;
         while(t <6) {
@@ -46,37 +56,46 @@ public class MainActivity extends AppCompatActivity {
             t++;
 
             //number input from user
-            EditText number = findViewById(R.id.enterGuess);
-            String n= number.getText().toString();
-            int no = Integer.parseInt(n);
+            n= number.getText().toString();
+            no = Integer.parseInt(n);
 
 
-            TextView result = findViewById(R.id.result);
 
 
             //check the input number with the random number generated
             if(no==x) {
 
                 result.setText("Congratulation");
-            }
-            else if(no >x ){
 
-                n= number.getText().toString();
+            }
+           if(no >x ){
+               result.setText("choose a lower number");
+//               Toast.makeText(MainActivity.this , "lower", Toast.LENGTH_SHORT).show();
+
+
+
+               n= number.getText().toString();
                 no = Integer.parseInt(n);
 
-                result.setText("choose a lower number");
+           }
+           if(no <x )
+           {
+               result.setText("choose a higher number");
 
-            }
-            else{
+//               Toast.makeText(MainActivity.this , "higher", Toast.LENGTH_SHORT).show();
 
-                n= number.getText().toString();
+
+               n= number.getText().toString();
                 no = Integer.parseInt(n);
 
-                result.setText("choose a lower number");
+
 
             }
+
 
         }
+//        result.setText("game over");
+
 
 
     }
